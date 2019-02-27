@@ -17,8 +17,8 @@ let canvasModal = document.getElementById('canvasModal');
 let ctxModal = canvasModal.getContext("2d");
 
 //Proporções
-var propAlt = dimAlt/150;
-var propLarg = dimLarg/200;
+var propAlt = dimAlt / 150;
+var propLarg = dimLarg / 200;
 
 //Tamanho do canvas
 canvas.width = dimLarg;
@@ -35,7 +35,6 @@ background.onload = function () {
 function buildImage(event) {
     let cordX = event.offsetX;
     let cordY = event.offsetY;
-    ctx.drawImage(background, 0, 0, dimLarg, dimAlt);
 
     $('#myModal').modal('show')
 
@@ -89,18 +88,43 @@ function modalClick(event) {
 }
 
 function salvarModal() {
+
+    //Verifica se já existe
+    if(this.listSalvos.find(salvo => {
+        return salvo.nome == document.getElementById('textVal').value;
+    })){
+        alert('Campo já existe');
+        return false;
+    }
+
+    if(document.getElementById('textVal').value == ""){
+        alert('Deve preencher campo valor');
+        return false;
+    }
+
     //Desenha no canvas pai 
-        //Pega no local storage
-        var recoverX = localStorage.getItem("modalCanvasX");
-        var recoverY = localStorage.getItem("modalCanvasY");
+    //Pega no local storage
+    var recoverX = localStorage.getItem("modalCanvasX");
+    var recoverY = localStorage.getItem("modalCanvasY");
 
-        //Altera textVal
-        this.textVal = document.getElementById('textVal').value;
+    //Altera textVal
+    this.textVal = document.getElementById('textVal').value;
 
-        //Desenha
-        ctx.font = `${this.fontSize}px ${this.fontName}`;
-        ctx.fillText(this.textVal, recoverX * this.propLarg, parseInt(recoverY) * this.propAlt + (parseInt(this.fontSize) - parseInt(this.fontSize)*0.23));
-        
+    //Desenha
+    ctx.font = `${this.fontSize}px ${this.fontName}`;
+    ctx.fillText(this.textVal, recoverX * this.propLarg, parseInt(recoverY) * this.propAlt + (parseInt(this.fontSize) - parseInt(this.fontSize) * 0.23));
+
+    //Salva na lista de salvos
+    this.listSalvos.push({
+        'nome': this.textVal,
+        'cordX': recoverX * this.propLarg,
+        'cordY': recoverY * this.propAlt,
+        'resLarg': this.dimLarg,
+        'resAlt': this.dimAlt,
+        'fontName': this.fontName,
+        'fontSize': this.fontSize
+    });
+
     $('#myModal').modal('hide');
 }
 
@@ -130,6 +154,55 @@ function setSize(event) {
 
 function setFont(event) {
     this.fontName = event.target.value;
+}
+
+function limpaPai(){
+    //Limpa lista
+    this.listSalvos = [];
+
+    //Limpa canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //Reconstroi
+    ctx.drawImage(background, 0, 0, dimLarg, dimAlt);
+}
+
+function limpaUm(){
+    if(document.getElementById('nomeRemov').value == "") {
+        alert('Escolha o nome do campo');
+        return false;
+    }else{
+        //Pega o nome digitado
+        var nomeRemov = document.getElementById('nomeRemov').value;
+        //Verifica se existe no array
+        if(this.listSalvos.find(salvo => {
+            return salvo.nome == nomeRemov
+        }) == undefined){
+            alert('Nome não existente na imagem');
+            return false;
+        }
+        //Caso exista 
+            //Limpa da lista
+            this.listSalvos = this.listSalvos.filter(salvo => {
+                return salvo.nome !== nomeRemov;
+            });
+
+            //Limpa pai
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            //Reconstrói pai
+            ctx.drawImage(background, 0, 0, dimLarg, dimAlt);
+
+            //Escreve nomes sem o excluído
+            this.listSalvos.forEach(salvo => {
+                ctx.font = `${salvo.fontSize}px ${salvo.fontName}`;
+                ctx.fillText(salvo.nome, salvo.cordX, parseInt(salvo.cordY) + parseInt(salvo.fontSize) * 0.77);
+
+            });
+    }
+}
+function finalizar(){
+    alert('Customização Finalizada');
+    console.log(this.listSalvos);
 }
 
 

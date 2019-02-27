@@ -13,9 +13,19 @@
 </head>
 
 <body>
-
-    <canvas onclick="buildImage(event);" id="canvasss"></canvas>
-
+    <div class="cont-pai">
+        <canvas onclick="buildImage(event);" id="canvasss"></canvas>
+        <div class="cont-baixo-botao">
+            <button class="btn" onclick="limpaPai();">Limpar Salvos</button>
+            <div>
+                <button class="btn" onclick="limpaUm();">Remover</button>
+                <input type="text" id="nomeRemov">
+            </div>
+            <div>
+                <button class="btn" onclick="finalizar();">Finalizar</button>
+            </div>
+        </div>
+    </div>
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -36,30 +46,32 @@
                         <div class="cont-baixo">
                             <div>
                                 <label>Valor:
-                                    <input class="form-control" type="text" id="textVal"/>
+                                    <input class="form-control" type="text" id="textVal" />
                                 </label>
-                                <label>Fonte: 
+                                <label>Fonte:
                                     <select class="form-control" id="selectFont" onchange="setFont(event);">
                                         <option style="font-family: Arial, Helvetica, sans-serif;" value="Arial">Arial</option>
                                         <option style="font-family: Verdana, Geneva, Tahoma, sans-serif;" value="Verdana">Verdana</option>
-                                        <option style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif" value="Cambria">Cambria</option>
+                                        <option style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"
+                                            value="Cambria">Cambria</option>
                                         <option style="font-family: Georgia, 'Times New Roman', Times, serif" value="Georgia">Georgia</option>
-                                        <option style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" value="Impact">Impact</option>
+                                        <option style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif"
+                                            value="Impact">Impact</option>
                                         <option style="font-family: 'Courier New', Courier, monospace" value="Courier">Courier</option>
                                     </select>
                                 </label>
-                                <label>Tamanho da fonte: 
-                                        <select class="form-control" id="selectTamFont" onchange="setSize(event);">
-                                            <option value=12>12px</option>
-                                            <option value=14>14px</option>
-                                            <option value=20>20px</option>
-                                            <option value=24>24px</option>
-                                            <option value=30>30px</option>
-                                            <option value=42>42px</option>
-                                            <option value=58>58px</option>
-                                            <option value=64>64px</option>
-                                            <option value=72>72px</option>
-                                        </select>
+                                <label>Tamanho da fonte:
+                                    <select class="form-control" id="selectTamFont" onchange="setSize(event);">
+                                        <option value=12>12px</option>
+                                        <option value=14>14px</option>
+                                        <option value=20>20px</option>
+                                        <option value=24>24px</option>
+                                        <option value=30>30px</option>
+                                        <option value=42>42px</option>
+                                        <option value=58>58px</option>
+                                        <option value=64>64px</option>
+                                        <option value=72>72px</option>
+                                    </select>
                                 </label>
                             </div>
                             <div>
@@ -70,7 +82,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    
+
                 </div>
             </div>
 
