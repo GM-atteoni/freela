@@ -5,6 +5,9 @@ var textVal;
 var dimLarg = localStorage.getItem("dimLarg");
 var dimAlt = localStorage.getItem("dimAlt");
 
+//Lista de salvos
+var listSalvos = [];
+
 //Canvas pai
 let canvas = document.getElementById('canvasss');
 let ctx = canvas.getContext("2d");
