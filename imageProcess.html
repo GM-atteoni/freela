@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="imageProcess.css">
+</head>
+
+<body>
+
+    <canvas onclick="buildImage(event);" id="canvasss"></canvas>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Preview</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="cont-principal">
+                        <div class="cont-cima">
+                            <div>
+                                <canvas onclick="modalClick(event);" id="canvasModal"></canvas>
+                            </div>
+                        </div>
+                        <div class="cont-baixo">
+                            <div>
+                                <label>Valor:
+                                    <input class="form-control" type="text" id="textVal"/>
+                                </label>
+                                <label>Fonte: 
+                                    <select class="form-control" id="selectFont" onchange="setFont(event);">
+                                        <option value="Arial">Arial</option>
+                                        <option value="Verdana">Verdana</option>
+                                    </select>
+                                </label>
+                                <label>Tamanho da fonte: 
+                                        <select class="form-control" id="selectTamFont" onchange="setSize(event);">
+                                            <option value=12>12px</option>
+                                            <option value=14>14px</option>
+                                            <option value=20>20px</option>
+                                            <option value=24>24px</option>
+                                            <option value=30>30px</option>
+                                        </select>
+                                </label>
+                            </div>
+                            <div>
+                                <button class="btn btn-secondary" onclick="cancelarModal();">Cancelar</button>
+                                <button class="btn btn-primary" onclick="salvarModal();">Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="imageProcess.js"></script>
+</body>
+
+</html>
