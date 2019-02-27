@@ -1,4 +1,4 @@
-//Variáveis de cstomização (Padrão Arial, 12)
+//Variáveis de customização (Padrão Arial, 12)
 var fontSize = 12;
 var fontName = "Arial";
 var textVal;
@@ -87,17 +87,17 @@ function modalClick(event) {
 
 function salvarModal() {
     //Desenha no canvas pai 
-    //Pega no local storage
-    var recoverX = localStorage.getItem("modalCanvasX");
-    var recoverY = localStorage.getItem("modalCanvasY");
+        //Pega no local storage
+        var recoverX = localStorage.getItem("modalCanvasX");
+        var recoverY = localStorage.getItem("modalCanvasY");
 
-    //Altera textVal
-    this.textVal = document.getElementById('textVal').value;
+        //Altera textVal
+        this.textVal = document.getElementById('textVal').value;
 
-    //Desenha
-    ctx.font = `${this.fontSize}px ${this.fontName}`;
-    ctx.fillText(this.textVal, recoverX * this.propLarg, parseInt(recoverY) * this.propAlt + parseInt(this.fontSize));
-
+        //Desenha
+        ctx.font = `${this.fontSize}px ${this.fontName}`;
+        ctx.fillText(this.textVal, recoverX * this.propLarg, parseInt(recoverY) * this.propAlt + (parseInt(this.fontSize) - parseInt(this.fontSize)*0.23));
+        
     $('#myModal').modal('hide');
 }
 
