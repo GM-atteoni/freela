@@ -1,6 +1,7 @@
 //Variáveis de customização (Padrão Arial, 12)
 var fontSize = 12;
 var fontName = "Arial";
+var fontColor = "Black";
 var textVal;
 var dimLarg = localStorage.getItem("dimLarg");
 var dimAlt = localStorage.getItem("dimAlt");
@@ -25,7 +26,7 @@ canvas.width = dimLarg;
 canvas.height = dimAlt;
 
 //Pega imagem do local storage
-let background = new Image();
+var background = new Image();
 background.src = localStorage.getItem("formImage");
 
 background.onload = function () {
@@ -112,6 +113,7 @@ function salvarModal() {
 
     //Desenha
     ctx.font = `${this.fontSize}px ${this.fontName}`;
+    ctx.fillStyle = this.fontColor;
     ctx.fillText(this.textVal, recoverX * this.propLarg, parseInt(recoverY) * this.propAlt + (parseInt(this.fontSize) - parseInt(this.fontSize) * 0.23));
 
     //Salva na lista de salvos
@@ -122,7 +124,8 @@ function salvarModal() {
         'resLarg': this.dimLarg,
         'resAlt': this.dimAlt,
         'fontName': this.fontName,
-        'fontSize': this.fontSize
+        'fontSize': this.fontSize,
+        'fontColor': this.fontColor
     });
 
     $('#myModal').modal('hide');
@@ -195,14 +198,23 @@ function limpaUm(){
             //Escreve nomes sem o excluído
             this.listSalvos.forEach(salvo => {
                 ctx.font = `${salvo.fontSize}px ${salvo.fontName}`;
+                ctx.fillStyle = salvo.fontColor;
                 ctx.fillText(salvo.nome, salvo.cordX, parseInt(salvo.cordY) + parseInt(salvo.fontSize) * 0.77);
 
             });
     }
 }
+function setColor(event){
+    //Altera fontSize
+    this.fontColor = event.target.value;
+}
 function finalizar(){
     alert('Customização Finalizada');
     console.log(this.listSalvos);
+    console.log(this.background.src);
+
+    limpaPai();
+
 }
 
 
