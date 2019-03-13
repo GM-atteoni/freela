@@ -1,4 +1,4 @@
-function readURL(input) {
+function readURL() {
     let reader = new FileReader();
 
     reader.onload = function (e) {
@@ -13,22 +13,22 @@ function readURL(input) {
 }
 
 function preview() {
-    if(localStorage.getItem("formImage")){
+    if (localStorage.getItem("formImage")) {
         localStorage.removeItem("formImage");
     }
-    if(localStorage.getItem("dimLarg")){
+    if (localStorage.getItem("dimLarg")) {
         localStorage.removeItem("dimLarg")
     }
-    if(localStorage.getItem("dimAlt")){
+    if (localStorage.getItem("dimAlt")) {
         localStorage.removeItem("dimAlt")
     }
     document.getElementById('dimLarg').value = "";
     document.getElementById('dimAlt').value = "";
-    readURL(this);
+    readURL();
 }
 
-function dimensLarg(){
-    if(localStorage.getItem("dimLarg")){
+function dimensLarg() {
+    if (localStorage.getItem("dimLarg")) {
         localStorage.removeItem("dimLarg")
     }
 
@@ -37,10 +37,10 @@ function dimensLarg(){
     localStorage.setItem("dimLarg", dimLarg);
 
 }
-function dimensAlt(){
-    if(localStorage.getItem("dimAlt")){
+function dimensAlt() {
+    if (localStorage.getItem("dimAlt")) {
         localStorage.removeItem("dimAlt")
-    } 
+    }
 
     let dimAlt = document.getElementById('dimAlt').value;
 

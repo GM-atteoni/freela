@@ -25,9 +25,21 @@ var propLarg = dimLarg / 200;
 canvas.width = dimLarg;
 canvas.height = dimAlt;
 
+//Google Fontes
+var fontList = [];
+
 //Pega imagem do local storage
 var background = new Image();
 background.src = localStorage.getItem("formImage");
+
+window.onload = () => {
+    if (this.fontList.length == 0) {
+        var httpReq = new XMLHttpRequest();
+        httpReq.open("GET", "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBi5P2I2QBWT2w79ZS4lhCHzP-rTe7zqBg", false);
+        httpReq.send(null);
+        this.fontList = JSON.parse(httpReq.response).items;
+    }
+}
 
 background.onload = function () {
     ctx.drawImage(background, 0, 0, dimLarg, dimAlt);
@@ -38,6 +50,19 @@ function buildImage(event) {
     let cordY = event.offsetY;
 
     $('#myModal').modal('show')
+
+    var select = document.getElementById('fontUploadFile');
+    var option = document.createElement('option');
+    option.text = "Selecione";
+    select.appendChild(option);
+    this.fontList.forEach(font => {
+        var option = document.createElement('option');
+        option.text = font.family;
+        option.value = font.files.regular;
+        select.appendChild(option);
+    });
+
+    this.fontList = [];
 
     buildImageModal(cordX, cordY);
 }
@@ -91,15 +116,20 @@ function modalClick(event) {
 function salvarModal() {
 
     //Verifica se já existe
-    if(this.listSalvos.find(salvo => {
+    if (this.listSalvos.find(salvo => {
         return salvo.nome == document.getElementById('textVal').value;
-    })){
+    })) {
         alert('Campo já existe');
         return false;
     }
 
-    if(document.getElementById('textVal').value == ""){
+    if (document.getElementById('textVal').value == "") {
         alert('Deve preencher campo valor');
+        return false;
+    }
+
+    if (document.getElementById('fontStandard').checked == false && document.getElementById('fontUpload').checked == false) {
+        alert('Deve selecionar fonte');
         return false;
     }
 
@@ -159,7 +189,7 @@ function setFont(event) {
     this.fontName = event.target.value;
 }
 
-function limpaPai(){
+function limpaPai() {
     //Limpa lista
     this.listSalvos = [];
 
@@ -169,46 +199,46 @@ function limpaPai(){
     ctx.drawImage(background, 0, 0, dimLarg, dimAlt);
 }
 
-function limpaUm(){
-    if(document.getElementById('nomeRemov').value == "") {
+function limpaUm() {
+    if (document.getElementById('nomeRemov').value == "") {
         alert('Escolha o nome do campo');
         return false;
-    }else{
+    } else {
         //Pega o nome digitado
         var nomeRemov = document.getElementById('nomeRemov').value;
         //Verifica se existe no array
-        if(this.listSalvos.find(salvo => {
+        if (this.listSalvos.find(salvo => {
             return salvo.nome == nomeRemov
-        }) == undefined){
+        }) == undefined) {
             alert('Nome não existente na imagem');
             return false;
         }
         //Caso exista 
-            //Limpa da lista
-            this.listSalvos = this.listSalvos.filter(salvo => {
-                return salvo.nome !== nomeRemov;
-            });
+        //Limpa da lista
+        this.listSalvos = this.listSalvos.filter(salvo => {
+            return salvo.nome !== nomeRemov;
+        });
 
-            //Limpa pai
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        //Limpa pai
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            //Reconstrói pai
-            ctx.drawImage(background, 0, 0, dimLarg, dimAlt);
+        //Reconstrói pai
+        ctx.drawImage(background, 0, 0, dimLarg, dimAlt);
 
-            //Escreve nomes sem o excluído
-            this.listSalvos.forEach(salvo => {
-                ctx.font = `${salvo.fontSize}px ${salvo.fontName}`;
-                ctx.fillStyle = salvo.fontColor;
-                ctx.fillText(salvo.nome, salvo.cordX, parseInt(salvo.cordY) + parseInt(salvo.fontSize) * 0.77);
+        //Escreve nomes sem o excluído
+        this.listSalvos.forEach(salvo => {
+            ctx.font = `${salvo.fontSize}px ${salvo.fontName}`;
+            ctx.fillStyle = salvo.fontColor;
+            ctx.fillText(salvo.nome, salvo.cordX, parseInt(salvo.cordY) + parseInt(salvo.fontSize) * 0.77);
 
-            });
+        });
     }
 }
-function setColor(event){
+function setColor(event) {
     //Altera fontSize
     this.fontColor = event.target.value;
 }
-function finalizar(){
+function finalizar() {
     alert('Customização Finalizada');
     console.log(this.listSalvos);
     console.log(this.background.src);
@@ -217,4 +247,35 @@ function finalizar(){
 
 }
 
+function selectedFontType(event) {
+    if (event.target.id == "fontUpload" && document.getElementById('fontStandard').checked) {
+        document.getElementById('fontStandard').checked = false;
+    } else if (event.target.id == "fontStandard" && document.getElementById('fontUpload').checked) {
+        document.getElementById('fontUpload').checked = false;
+    }
+    if (event.target.id == "fontUpload") {
+        if (event.target.checked == false) {
+            document.getElementById('fontUploadFile').disabled = true;
+            document.getElementById('fontUploadFile').selectedIndex = 0;
+        } else {
+            document.getElementById('fontUploadFile').disabled = false;
+            document.getElementById('selectFont').disabled = true;
+        }
+    } else if (event.target.id == "fontStandard") {
+        if (event.target.checked == false) {
+            document.getElementById('selectFont').disabled = true;
+        } else {
+            document.getElementById('selectFont').disabled = false;
+            document.getElementById('fontUploadFile').disabled = true;
+        }
+    }
+}
+
+function fontFileChange(event) {
+    var selectedFont = new FontFace(event.target[event.target.selectedIndex].text, `url(${event.target.value})`);
+    selectedFont.load().then(function (loaded_face) {
+        document.fonts.add(loaded_face);
+        this.fontName = event.target[event.target.selectedIndex].text;
+    })
+}
 

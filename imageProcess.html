@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
     <link rel="stylesheet" href="imageProcess.css">
 </head>
 
@@ -48,20 +49,35 @@
                                 <label>Valor:
                                     <input class="form-control" type="text" id="textVal" />
                                 </label>
-                                <label>Fonte:
-                                    <select class="form-control" id="selectFont" onchange="setFont(event);">
-                                        <option style="font-family: Arial, Helvetica, sans-serif;" value="Arial">Arial</option>
-                                        <option style="font-family: Verdana, Geneva, Tahoma, sans-serif;" value="Verdana">Verdana</option>
-                                        <option style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"
-                                            value="Cambria">Cambria</option>
-                                        <option style="font-family: Georgia, 'Times New Roman', Times, serif" value="Georgia">Georgia</option>
-                                        <option style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif"
-                                            value="Impact">Impact</option>
-                                        <option style="font-family: 'Courier New', Courier, monospace" value="Courier">Courier</option>
-                                    </select>
-                                </label>
+                                <div>
+                                    <input type="checkbox" id="fontStandard" onclick="selectedFontType(event);" />
+                                    <label>Fonte:
+                                        <select disabled class="form-control" id="selectFont"
+                                            onchange="setFont(event);">
+                                            <option style="font-family: Arial, Helvetica, sans-serif;" value="Arial">
+                                                Arial</option>
+                                            <option style="font-family: Verdana, Geneva, Tahoma, sans-serif;"
+                                                value="Verdana">Verdana</option>
+                                            <option
+                                                style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"
+                                                value="Cambria">Cambria</option>
+                                            <option style="font-family: Georgia, 'Times New Roman', Times, serif"
+                                                value="Georgia">Georgia</option>
+                                            <option
+                                                style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif"
+                                                value="Impact">Impact</option>
+                                            <option style="font-family: 'Courier New', Courier, monospace"
+                                                value="Courier">Courier</option>
+                                        </select>
+                                    </label>
+                                    <input type="checkbox" id="fontUpload" onclick="selectedFontType(event);" />
+                                    <label>GoogleFonts
+                                        <select disabled id="fontUploadFile" onchange="fontFileChange(event);">
+                                        </select>
+                                    </label>
+                                </div>
                                 <label>Tamanho da fonte:
-                                    <select class="form-control" id="selectTamFont" onchange="setSize(event);">
+                                    <select class=" form-control" id="selectTamFont" onchange="setSize(event);">
                                         <option value=12>12px</option>
                                         <option value=14>14px</option>
                                         <option value=20>20px</option>
@@ -74,12 +90,7 @@
                                     </select>
                                 </label>
                                 <label>Cor:
-                                    <select class="form-control" id="selectColor" onchange="setColor(event);">
-                                        <option value="Black">Preto</option>
-                                        <option value="Red">Vermelho</option>
-                                        <option value="Blue">Azul</option>
-                                        <option value="Green">verde</option>
-                                    </select>
+                                    <input type="color" id="selectColor" onchange="setColor(event);" />
                                 </label>
                             </div>
                             <div>
