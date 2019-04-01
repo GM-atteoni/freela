@@ -30,7 +30,7 @@ var fontList = [];
 
 //Pega imagem do local storage
 var background = new Image();
-background.src = localStorage.getItem("formImage");
+background.src = LZString.decompressFromUTF16(localStorage.getItem("formImage"));
 
 window.onload = () => {
     if (this.fontList.length == 0) {
@@ -240,10 +240,10 @@ function setColor(event) {
 }
 function finalizar() {
     alert('Customização Finalizada');
-    console.log(this.listSalvos);
-    console.log(this.background.src);
+        console.log(this.listSalvos);
+        console.log(this.background.src);
 
-    limpaPai();
+    limpaPai(); 
 
 }
 

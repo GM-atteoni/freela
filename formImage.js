@@ -3,7 +3,11 @@ function readURL() {
 
     reader.onload = function (e) {
         document.getElementById('imgPreview').src = e.target.result;
-        localStorage.setItem("formImage", e.target.result);
+
+        //Compacta URL
+        var urlCompactada = LZString.compressToUTF16(e.target.result)
+        console.log(urlCompactada); 
+        localStorage.setItem("formImage", urlCompactada);
     }
 
     reader.readAsDataURL(document.getElementById('file').files[0]);
