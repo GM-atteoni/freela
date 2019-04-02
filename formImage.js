@@ -4,10 +4,8 @@ function readURL() {
     reader.onload = function (e) {
         document.getElementById('imgPreview').src = e.target.result;
 
-        //Compacta URL
-        var urlCompactada = LZString.compressToUTF16(e.target.result)
-        console.log(urlCompactada); 
-        localStorage.setItem("formImage", urlCompactada);
+        //Guarda Local Storage
+        localStorage.setItem("formImage", e.target.result);
     }
 
     reader.readAsDataURL(document.getElementById('file').files[0]);

@@ -30,7 +30,7 @@ var fontList = [];
 
 //Pega imagem do local storage
 var background = new Image();
-background.src = LZString.decompressFromUTF16(localStorage.getItem("formImage"));
+background.src = localStorage.getItem("formImage");
 
 window.onload = () => {
     if (this.fontList.length == 0) {
